@@ -5,8 +5,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f88ddc33-7992-4adc-a105-301caa8ceeb4" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/reactions/ReactionsFacade.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/reactions/ReactionsFacade.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/test/ReactionReportOverviewTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/test/ReactionReportOverviewTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hackathon.iml" beforeDir="false" afterPath="$PROJECT_DIR$/hackathon.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/hackathon/dao/model/HasUUID.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/hackathon/dao/model/HasUUID.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/hackathon/dao/model/Message.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/hackathon/dao/model/Message.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/hackathon/dao/model/User$Role.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/hackathon/dao/model/User$Role.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/hackathon/dao/model/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/hackathon/dao/model/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/hackathon/reactions/AbstractReactionReporter.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/hackathon/reactions/AbstractReactionReporter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/hackathon/reactions/IReactionReporter.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/hackathon/reactions/IReactionReporter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/hackathon/reactions/MessageReactions.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/hackathon/reactions/MessageReactions.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/hackathon/reactions/OldestReactionReporter.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/hackathon/reactions/OldestReactionReporter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/hackathon/reactions/ReactionDataSource$ReactionRecord.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/hackathon/reactions/ReactionDataSource$ReactionRecord.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/hackathon/reactions/ReactionDataSource.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/hackathon/reactions/ReactionDataSource.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/hackathon/reactions/ReactionDisplayTag.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/hackathon/reactions/ReactionDisplayTag.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/hackathon/reactions/ReactionReportFactory.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/hackathon/reactions/ReactionReportFactory.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/hackathon/reactions/ReactionType.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/hackathon/reactions/ReactionType.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/hackathon/reactions/SpamDetector.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/hackathon/reactions/SpamDetector.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,6 +48,9 @@
     &quot;second&quot;: &quot;f271c766-1063-47c9-908e-d892b044809a&quot;
   }
 }</component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/app/src/reactions/ReactionsFacade.java" root0="SKIP_INSPECTION" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 6
 }</component>
@@ -54,13 +73,13 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Libraries",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager" selected="JUnit.ReactionDAOTests">
+  <component name="RunManager" selected="JUnit.ReactionReportOverviewTests">
     <configuration name="ReactionDAOTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="hackathon" />
       <option name="PACKAGE_NAME" value="" />
@@ -81,8 +100,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.ReactionDAOTests" />
         <item itemvalue="JUnit.ReactionReportOverviewTests" />
+        <item itemvalue="JUnit.ReactionDAOTests" />
       </list>
     </recent_temporary>
   </component>
@@ -103,25 +122,16 @@
       <option name="presentableId" value="Default" />
       <updated>1759473635056</updated>
       <workItem from="1759473636141" duration="878000" />
-      <workItem from="1759474530565" duration="3765000" />
+      <workItem from="1759474530565" duration="4809000" />
+      <workItem from="1759481121084" duration="768000" />
+      <workItem from="1759481985138" duration="613000" />
+      <workItem from="1759482609026" duration="42000" />
+      <workItem from="1759482654273" duration="12000" />
+      <workItem from="1759482673494" duration="1532000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/reactions/DefaultReactionDataSource.java</url>
-          <line>10</line>
-          <properties>
-            <option name="lambda-ordinal" value="-1" />
-          </properties>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>
