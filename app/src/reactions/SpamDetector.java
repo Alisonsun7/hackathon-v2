@@ -1,54 +1,89 @@
 package reactions;
 
 import dao.PostDAO;
-import dao.UserDAO;
 import dao.model.Message;
-import dao.model.*;
+import dao.model.User;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
-import java.util.Hashtable;
-import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
-import java.util.LinkedList;
-import java.util.*;
-import java.awt.*;
-import java.io.*;
-import java.applet.*;
-import java.beans.*;
 
 public class SpamDetector {
-// algorithm to check whether a user might be spamming reactions (true) or not spamming (false)
-public boolean checkspamforuser(User user) {
-	Iterator<Message> m           = PostDAO.getInstance().getAllMessages();
-	float             probability = 0;
-	List<UUID>        across      = new ArrayList<UUID>(), posts_in = new ArrayList<UUID>();
-	boolean           firstTime   = false;
-	while (m.hasNext()) {
-		// Note to self: it's inefficient to search through all the messages and users when we really only need to check any that have changed since the last time this function was called, but there's no way to do this with the current codebase... Maybe once architectural decisions have been made, it'll be possible to do something about this. Also, we expect this to be called regularly, so it might also be worth looking into caching results from each execution of the function to speed it up in subsequent invokations.
-		Message message = m.next();
-		Iterator<User> users = UserDAO.getInstance().getAll();
-		int[] frequency = new int[ReactionType.values().length + 100];
-		for (ReactionDisplayTag displayTag : ReactionReportFactory
-				.buildReporter("overview")
-				.generateReport(message)) try {
-				frequency[displayTag.type().ordinal()] += Integer.parseInt(displayTag.label());
-			} catch (NumberFormatException ignored) {};
 
+	// Score threshold (tunable)
+	private static final float THRESHOLD = 5.0f;
+	// Cap for frequency contribution: 1 / min(freq, COUNT_CAP)
+	private static final int COUNT_CAP = 3;
 
-	for (ReactionType type : ReactionsFacade.getReactions(message.id(), user.getUUID())) {
-		probability = probability + 1f /
-						(frequency[type.ordinal()] > 3 ? 3 : frequency[type.ordinal()]);
-		if (across.stream().anyMatch(x -> x.equals(message.thread()))) continue;
-			across.add(message.thread());
-		if (firstTime) continue;
-	} /* else */ {
-		firstTime = true;
-		m.next();
-		if (users.hasNext()) users.next();
-	}}
+	public boolean checkspamforuser(User user) {
+		if (user == null) return false;
 
+		Iterator<Message> messages = PostDAO.getInstance().getAllMessages();
+		if (messages == null) return false;
 
-	return ((probability / across.size())) >= 5; // 5 is the threshold. We can tweak it during testing.
-}}
+		float aggregatedScore = 0.0f;
+		final Set<UUID> distinctThreadsWhereUserReacted = new HashSet<>();
+
+		while (messages.hasNext()) {
+			Message message = messages.next();
+			if (message == null) continue;
+
+			// Count the frequency of each response type for the message
+			int[] freq = computeFrequenciesSafely(message);
+
+			// The user's reaction type to this message (maybe empty)
+			List<ReactionType> userTypes =
+					ReactionsFacade.getReactions(user.getUUID(), message.id());
+
+			if (userTypes != null && !userTypes.isEmpty()) {
+				// Only when the user responds to this message will it be counted in the thread
+				UUID threadId = message.thread();
+				if (threadId != null) distinctThreadsWhereUserReacted.add(threadId);
+
+				// ∑ 1 / min(freq(type), 3)
+				aggregatedScore += scoreForUserReactionsOnMessage(userTypes, freq);
+			}
+		}
+
+		int threads = distinctThreadsWhereUserReacted.size();
+		if (threads == 0) return false; // avoid division by zero; and "no response" should be classified as non-spam
+
+		float normalized = aggregatedScore / threads;
+		return normalized >= THRESHOLD;
+	}
+
+	// Build frequency array for all ReactionType on a single message using the reporting pipeline
+	private static int[] computeFrequenciesSafely(Message message) {
+		int[] frequency = new int[ReactionType.values().length + 100]; // remains original +100
+		ReactionDisplayTag[] report =
+				ReactionReportFactory.buildReporter("overview").generateReport(message);
+		if (report != null) {
+			for (ReactionDisplayTag tag : report) {
+				if (tag == null || tag.type() == null) continue;
+				int idx = tag.type().ordinal();
+				if (idx < 0 || idx >= frequency.length) continue;
+				try {
+					String label = tag.label();
+					if (label != null) frequency[idx] += Integer.parseInt(label);
+				} catch (NumberFormatException ignored) { }
+			}
+		}
+		return frequency;
+	}
+
+	// for one message: the cumulative score is based on the user's response type.
+	private static float scoreForUserReactionsOnMessage(List<ReactionType> userTypes, int[] frequency) {
+		float score = 0.0f;
+		for (ReactionType type : userTypes) {
+			if (type == null) continue;
+			int idx = type.ordinal();
+			if (idx < 0 || idx >= frequency.length) continue;
+			int f = frequency[idx];
+			int capped = (f > COUNT_CAP) ? COUNT_CAP : Math.max(f, 1); // consider 0, avoid 1/0
+			score += 1.0f / capped;
+		}
+		return score;
+	}
+}

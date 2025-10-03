@@ -1,10 +1,11 @@
 package reactions;
 
 import dao.model.Message;
-import java.util.*;
-
+import java.util.List;
+import java.util.Arrays;
 
 final class OverviewReactionReporter extends AbstractReactionReporter {
+    private static final int TOP_K = 5;
     private final ReactionDataSource data = new DefaultReactionDataSource();
 
     @Override
@@ -12,29 +13,42 @@ final class OverviewReactionReporter extends AbstractReactionReporter {
         List<ReactionDataSource.ReactionRecord> rs = data.listEffectiveReactions(message);
         if (rs.isEmpty()) return new ReactionDisplayTag[0];
 
-        EnumMap<ReactionType, Integer> freq = new EnumMap<>(ReactionType.class);
-        EnumMap<ReactionType, Long> firstSeen = new EnumMap<>(ReactionType.class);
+        // 统计：频次 + 最早时间（Long.MAX_VALUE 表示尚未出现）
+        final ReactionType[] types = ReactionType.values();
+        final int T = types.length;
+        int[] counts = new int[T];
+        long[] firstSeen = new long[T];
+        Arrays.fill(firstSeen, Long.MAX_VALUE);
 
         for (var r : rs) {
-            freq.put(r.type, freq.getOrDefault(r.type, 0) + 1);
-            firstSeen.compute(r.type, (t, old) -> (old == null || r.timestampNanos < old) ? r.timestampNanos : old);
+            int idx = r.type().ordinal();
+            counts[idx]++;
+            long ts = r.timestampNanos();
+            if (ts < firstSeen[idx]) firstSeen[idx] = ts;
         }
-        if (freq.isEmpty()) return new ReactionDisplayTag[0];
 
-        List<Map.Entry<ReactionType, Integer>> entries = new ArrayList<>(freq.entrySet());
-        entries.sort((a, b) -> {
-            int c = Integer.compare(b.getValue(), a.getValue()); // 次数降序
-            if (c != 0) return c;
-            long ta = firstSeen.get(a.getKey());
-            long tb = firstSeen.get(b.getKey());
-            return Long.compare(ta, tb); // 首次出现更早的优先
-        });
+        // 计算实际出现的类型数，用于分配输出数组长度
+        int distinct = 0;
+        for (int c : counts) if (c > 0) distinct++;
+        int outLen = Math.min(TOP_K, distinct);
+        if (outLen == 0) return new ReactionDisplayTag[0];
 
-        int n = Math.min(5, entries.size());
-        ReactionDisplayTag[] out = new ReactionDisplayTag[n];
-        for (int i = 0; i < n; i++) {
-            var e = entries.get(i);
-            out[i] = new ReactionDisplayTag(e.getKey(), String.valueOf(e.getValue()));
+        ReactionDisplayTag[] out = new ReactionDisplayTag[outLen];
+
+        // 选择 Top-K：次数降序；并列取 firstSeen 更早者
+        for (int i = 0; i < outLen; i++) {
+            int best = -1;
+            for (int t = 0; t < T; t++) {
+                if (counts[t] == 0) continue;
+                if (best == -1) { best = t; continue; }
+                if (counts[t] > counts[best] ||
+                        (counts[t] == counts[best] && firstSeen[t] < firstSeen[best])) {
+                    best = t;
+                }
+            }
+            // 写出并“清零”以便下一轮选择
+            out[i] = new ReactionDisplayTag(types[best], String.valueOf(counts[best]));
+            counts[best] = 0;
         }
         return out;
     }
