@@ -99,7 +99,7 @@ public class ReactionsFacade {
         }
     }
 
-    // ---------------- 给 DefaultReactionDataSource 提供的只读快照 ----------------
+
 
     static Map<UUID, Map<ReactionType, Long>> _snapshotForMessage(UUID messageUUID) {
         Map<UUID, Map<ReactionType, Long>> perMsg = STATE.get(messageUUID);
@@ -112,7 +112,7 @@ public class ReactionsFacade {
         return Map.copyOf(copy);
     }
 
-    // ---------------- 私有辅助 ----------------
+
 
     private static void recordEvent(ReactionEvent e) {
         EVENTS.computeIfAbsent(e.messageUUID, k -> new ArrayList<>()).add(e);
@@ -142,11 +142,11 @@ public class ReactionsFacade {
         }
     }
 
-    /** 当前有效状态： message -> ( user -> ( type -> timestamp ) ) */
+
     private static final Map<UUID, Map<UUID, Map<ReactionType, Long>>> STATE =
             new ConcurrentHashMap<>();
 
-    /** 事件流（可选） */
+
     private static final Map<UUID, List<ReactionEvent>> EVENTS =
             new ConcurrentHashMap<>();
 
