@@ -18,44 +18,158 @@ public class ReactionReportOverviewTests {
 
         List<Object[]> scenarios = new ArrayList<>();
 
+        // Scenario 1: Basic frequency ordering
         {
             Message message = getRandomMessage();
             User userA = UserDAO.getInstance().getRandom();
             User userB = getDifferentUser(userA);
 
             ReactionsFacade.addReaction(userA.getUUID(), message.id(), ReactionType.HAPPY, 1);
-            ReactionsFacade.addReaction(userA.getUUID(), message.id(), ReactionType.LAUGH, 2);
-            ReactionsFacade.addReaction(userB.getUUID(), message.id(), ReactionType.ANGRY, 3);
-
-            ReactionsFacade.removeReaction(userA.getUUID(), message.id(), ReactionType.LAUGH);
+            ReactionsFacade.addReaction(userB.getUUID(), message.id(), ReactionType.ANGRY, 2);
+            ReactionsFacade.addReaction(getDifferentUser(userA, userB).getUUID(), message.id(), ReactionType.HAPPY, 3);
 
             ReactionDisplayTag[] expected = {
-                    new ReactionDisplayTag(ReactionType.HAPPY, "1"),
+                    new ReactionDisplayTag(ReactionType.HAPPY, "2"),
                     new ReactionDisplayTag(ReactionType.ANGRY, "1")
             };
             scenarios.add(new Object[]{message, expected});
         }
 
+        // Scenario 2: Tie-breaker by earliest appearance
         {
             Message message = getRandomMessage();
-            User u1 = UserDAO.getInstance().getRandom();
-            User u2 = getDifferentUser(u1);
-            User u3 = getDifferentUser(u1, u2);
+            User userA = UserDAO.getInstance().getRandom();
+            User userB = getDifferentUser(userA);
 
-            ReactionsFacade.addReaction(u1.getUUID(), message.id(), ReactionType.HAPPY, 1);
-            ReactionsFacade.addReaction(u2.getUUID(), message.id(), ReactionType.HAPPY, 2);
-            ReactionsFacade.addReaction(u3.getUUID(), message.id(), ReactionType.HAPPY, 3);
-
-            ReactionsFacade.addReaction(u1.getUUID(), message.id(), ReactionType.ANGRY, 4);
-            ReactionsFacade.addReaction(u2.getUUID(), message.id(), ReactionType.ANGRY, 5);
-
-            ReactionsFacade.addReaction(u1.getUUID(), message.id(), ReactionType.LAUGH, 6);
-            ReactionsFacade.addReaction(u2.getUUID(), message.id(), ReactionType.LAUGH, 7);
+            ReactionsFacade.addReaction(userA.getUUID(), message.id(), ReactionType.HAPPY, 1);
+            ReactionsFacade.addReaction(userB.getUUID(), message.id(), ReactionType.ANGRY, 2);
+            ReactionsFacade.addReaction(getDifferentUser(userA, userB).getUUID(), message.id(), ReactionType.ANGRY, 3);
+            ReactionsFacade.addReaction(getDifferentUser(userA, userB).getUUID(), message.id(), ReactionType.HAPPY, 4);
 
             ReactionDisplayTag[] expected = {
-                    new ReactionDisplayTag(ReactionType.HAPPY, "3"),
+                    new ReactionDisplayTag(ReactionType.HAPPY, "2"),
+                    new ReactionDisplayTag(ReactionType.ANGRY, "2")
+            };
+            scenarios.add(new Object[]{message, expected});
+        }
+
+        // Scenario 3: Deletion removes type completely
+        {
+            Message message = getRandomMessage();
+            User userA = UserDAO.getInstance().getRandom();
+
+            ReactionsFacade.addReaction(userA.getUUID(), message.id(), ReactionType.SAD, 1);
+            ReactionsFacade.removeReaction(userA.getUUID(), message.id(), ReactionType.SAD);
+
+            ReactionDisplayTag[] expected = {};
+            scenarios.add(new Object[]{message, expected});
+        }
+
+        // Scenario 4: More than 5 types, should truncate
+        {
+            Message message = getRandomMessage();
+            User userA = UserDAO.getInstance().getRandom();
+
+            ReactionsFacade.addReaction(userA.getUUID(), message.id(), ReactionType.HAPPY, 1);
+            ReactionsFacade.addReaction(getDifferentUser(userA).getUUID(), message.id(), ReactionType.ANGRY, 2);
+            ReactionsFacade.addReaction(getDifferentUser(userA).getUUID(), message.id(), ReactionType.SAD, 3);
+            ReactionsFacade.addReaction(getDifferentUser(userA).getUUID(), message.id(), ReactionType.LAUGH, 4);
+            ReactionsFacade.addReaction(getDifferentUser(userA).getUUID(), message.id(), ReactionType.GOOD_LUCK, 5);
+            ReactionsFacade.addReaction(getDifferentUser(userA).getUUID(), message.id(), ReactionType.CONGRATULATIONS, 6);
+
+            ReactionDisplayTag[] expected = {
+                    new ReactionDisplayTag(ReactionType.HAPPY, "1"),
+                    new ReactionDisplayTag(ReactionType.ANGRY, "1"),
+                    new ReactionDisplayTag(ReactionType.SAD, "1"),
+                    new ReactionDisplayTag(ReactionType.LAUGH, "1"),
+                    new ReactionDisplayTag(ReactionType.GOOD_LUCK, "1")
+            };
+            scenarios.add(new Object[]{message, expected});
+        }
+
+        // Scenario 5: Empty message, expect []
+        {
+            Message message = getRandomMessage();
+            ReactionDisplayTag[] expected = {};
+            scenarios.add(new Object[]{message, expected});
+        }
+
+        // Scenario 6: Mixed counts and tie-breaking
+        {
+            Message message = getRandomMessage();
+            User userA = UserDAO.getInstance().getRandom();
+            User userB = getDifferentUser(userA);
+            User userC = getDifferentUser(userA, userB);
+
+            ReactionsFacade.addReaction(userA.getUUID(), message.id(), ReactionType.HAPPY, 1);
+            ReactionsFacade.addReaction(userB.getUUID(), message.id(), ReactionType.ANGRY, 2);
+            ReactionsFacade.addReaction(userC.getUUID(), message.id(), ReactionType.ANGRY, 3);
+            ReactionsFacade.addReaction(getDifferentUser(userA, userB, userC).getUUID(), message.id(), ReactionType.HAPPY, 4);
+            ReactionsFacade.addReaction(getDifferentUser(userA, userB, userC).getUUID(), message.id(), ReactionType.LAUGH, 5);
+            ReactionsFacade.addReaction(getDifferentUser(userA, userB, userC).getUUID(), message.id(), ReactionType.LAUGH, 6);
+
+            ReactionDisplayTag[] expected = {
+                    new ReactionDisplayTag(ReactionType.HAPPY, "2"),
                     new ReactionDisplayTag(ReactionType.ANGRY, "2"),
                     new ReactionDisplayTag(ReactionType.LAUGH, "2")
+            };
+            scenarios.add(new Object[]{message, expected});
+        }
+
+        // Scenario 7: Deleting one type completely
+        {
+            Message message = getRandomMessage();
+            User userA = UserDAO.getInstance().getRandom();
+
+            ReactionsFacade.addReaction(userA.getUUID(), message.id(), ReactionType.SAD, 1);
+            ReactionsFacade.addReaction(getDifferentUser(userA).getUUID(), message.id(), ReactionType.SAD, 2);
+
+            ReactionsFacade.removeReaction(userA.getUUID(), message.id(), ReactionType.SAD);
+            ReactionsFacade.removeReaction(getDifferentUser(userA).getUUID(), message.id(), ReactionType.SAD);
+
+            ReactionDisplayTag[] expected = {};
+            scenarios.add(new Object[]{message, expected});
+        }
+
+        // Scenario 8: Exactly five different reaction types
+        {
+            Message message = getRandomMessage();
+            User userA = UserDAO.getInstance().getRandom();
+
+            ReactionsFacade.addReaction(userA.getUUID(), message.id(), ReactionType.HAPPY, 1);
+            ReactionsFacade.addReaction(getDifferentUser(userA).getUUID(), message.id(), ReactionType.ANGRY, 2);
+            ReactionsFacade.addReaction(getDifferentUser(userA).getUUID(), message.id(), ReactionType.SAD, 3);
+            ReactionsFacade.addReaction(getDifferentUser(userA).getUUID(), message.id(), ReactionType.LAUGH, 4);
+            ReactionsFacade.addReaction(getDifferentUser(userA).getUUID(), message.id(), ReactionType.GOOD_LUCK, 5);
+
+            ReactionDisplayTag[] expected = {
+                    new ReactionDisplayTag(ReactionType.HAPPY, "1"),
+                    new ReactionDisplayTag(ReactionType.ANGRY, "1"),
+                    new ReactionDisplayTag(ReactionType.SAD, "1"),
+                    new ReactionDisplayTag(ReactionType.LAUGH, "1"),
+                    new ReactionDisplayTag(ReactionType.GOOD_LUCK, "1")
+            };
+            scenarios.add(new Object[]{message, expected});
+        }
+
+        // Scenario 9: More than five types, check truncation order
+        {
+            Message message = getRandomMessage();
+            User userA = UserDAO.getInstance().getRandom();
+
+            ReactionsFacade.addReaction(userA.getUUID(), message.id(), ReactionType.HAPPY, 1);
+            ReactionsFacade.addReaction(getDifferentUser(userA).getUUID(), message.id(), ReactionType.ANGRY, 2);
+            ReactionsFacade.addReaction(getDifferentUser(userA).getUUID(), message.id(), ReactionType.SAD, 3);
+            ReactionsFacade.addReaction(getDifferentUser(userA).getUUID(), message.id(), ReactionType.LAUGH, 4);
+            ReactionsFacade.addReaction(getDifferentUser(userA).getUUID(), message.id(), ReactionType.GOOD_LUCK, 5);
+            ReactionsFacade.addReaction(getDifferentUser(userA).getUUID(), message.id(), ReactionType.CONGRATULATIONS, 6);
+
+            ReactionDisplayTag[] expected = {
+                    new ReactionDisplayTag(ReactionType.HAPPY, "1"),
+                    new ReactionDisplayTag(ReactionType.ANGRY, "1"),
+                    new ReactionDisplayTag(ReactionType.SAD, "1"),
+                    new ReactionDisplayTag(ReactionType.LAUGH, "1"),
+                    new ReactionDisplayTag(ReactionType.GOOD_LUCK, "1")
             };
             scenarios.add(new Object[]{message, expected});
         }
