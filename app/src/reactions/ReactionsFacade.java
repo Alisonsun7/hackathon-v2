@@ -1,6 +1,8 @@
 package reactions;
 
-import dao.ReactionDAO;
+
+import reactions.persistence.ReactionDAO;
+
 import java.util.List;
 import java.util.UUID;
 
