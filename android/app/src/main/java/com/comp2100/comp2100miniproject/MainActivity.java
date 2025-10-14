@@ -1,6 +1,7 @@
 package com.comp2100.comp2100miniproject;
 
 import android.os.Bundle;
+import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,13 +21,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    private List<Post> posts;
+    private static List<Post> posts;
     private RecyclerView recycler;
     private int numPosts = 8;
-    public static User currentUser;
+    public static boolean darkMode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(darkMode ? R.style.Theme_Dark : R.style.Theme_Light);
+
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
@@ -36,11 +39,13 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        // Register current user
-        currentUser = UserDAO.getInstance().register("Tester", "123456");
-
-        // Generate random data
-        RandomContentGenerator.populateRandomData();
+        // Dark mode button
+        Button darkModeButton = findViewById(R.id.btnDark);
+        darkModeButton.setOnClickListener(v -> {
+            darkMode = !darkMode;
+            recreate();
+        });
+        darkModeButton.setText(darkMode ? "Dark Mode ON" : "Dark Mode OFF");
 
         // Get recycler view
         recycler = findViewById(R.id.recyclerPosts);
@@ -49,10 +54,12 @@ public class MainActivity extends AppCompatActivity {
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
 
         // Fill the posts
-        posts = new ArrayList<>();
-        for (int i = 0; i < numPosts; i++) {
-            Post post = PostDAO.getInstance().getRandom();
-            posts.add(post);
+        if (posts == null) {
+            posts = new ArrayList<>();
+            for (int i = 0; i < numPosts; i++) {
+                Post post = PostDAO.getInstance().getRandom();
+                posts.add(post);
+            }
         }
 
         // Connect to the adapter

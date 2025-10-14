@@ -52,7 +52,7 @@ public class RandomContentGenerator {
 			RandomContentGenerator.generateReaction();
 		}
 
-		System.out.println("✅ populateRandomData() finished!");
+		System.out.println("populateRandomData() finished!");
 	}
 
 	/**
@@ -133,8 +133,8 @@ public class RandomContentGenerator {
          java  --enable-preview dao.RandomContentGenerator
     */
 	public static void main(String[] args) {
-		System.out.println("🚀 Testing RandomContentGenerator...");
+		System.out.println(" Testing RandomContentGenerator...");
 		populateRandomData();
-		System.out.println("✅ Data generation complete!");
+		System.out.println("Data generation complete!");
 	}
 }

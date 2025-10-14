@@ -14,6 +14,7 @@
         android:layout_height="wrap_content"
         android:padding="16dp"
         android:text="Comp2100 Forum"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -29,4 +30,14 @@
         app:layout_constraintTop_toBottomOf="@+id/mainTitle"
         tools:itemCount="5"
         tools:listitem="@layout/fragment_post" />
+
+    <Button
+        android:id="@+id/btnDark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        android:text="Dark Mode"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

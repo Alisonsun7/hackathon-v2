@@ -30,6 +30,7 @@ public class PostViewerActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(MainActivity.darkMode ? R.style.Theme_Dark : R.style.Theme_Light);
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_post_viewer);
