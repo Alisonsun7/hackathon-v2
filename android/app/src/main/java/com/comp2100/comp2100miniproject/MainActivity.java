@@ -12,7 +12,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import dao.PostDAO;
 import dao.RandomContentGenerator;
+import dao.UserDAO;
 import dao.model.Post;
+import dao.model.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +22,8 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
     private List<Post> posts;
     private RecyclerView recycler;
-    private int numPosts = 5;
+    private int numPosts = 8;
+    public static User currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +35,9 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        // Register current user
+        currentUser = UserDAO.getInstance().register("Tester", "123456");
 
         // Generate random data
         RandomContentGenerator.populateRandomData();

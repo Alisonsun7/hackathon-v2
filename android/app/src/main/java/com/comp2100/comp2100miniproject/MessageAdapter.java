@@ -107,7 +107,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
             popupView.findViewById(R.id.btnLike).setOnClickListener(v -> {
                 ReactionsFacade.addReaction(
-                        message.poster(), message.id(),
+                        MainActivity.currentUser.getUUID(), message.id(),
                         ReactionType.LIKE,
                         System.currentTimeMillis());
                 adapter.notifyDataSetChanged();
@@ -116,7 +116,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
             });
             popupView.findViewById(R.id.btnHappy).setOnClickListener(v -> {
                 ReactionsFacade.addReaction(
-                        message.poster(), message.id(),
+                        MainActivity.currentUser.getUUID(), message.id(),
                         ReactionType.HAPPY,
                         System.currentTimeMillis());
                 adapter.notifyDataSetChanged();
@@ -125,7 +125,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
             });
             popupView.findViewById(R.id.btnSurprise).setOnClickListener(v -> {
                 ReactionsFacade.addReaction(
-                        message.poster(), message.id(),
+                        MainActivity.currentUser.getUUID(), message.id(),
                         ReactionType.SURPRISE,
                         System.currentTimeMillis());
                 adapter.notifyDataSetChanged();
@@ -134,7 +134,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
             });
             popupView.findViewById(R.id.btnAngry).setOnClickListener(v -> {
                 ReactionsFacade.addReaction(
-                        message.poster(), message.id(),
+                        MainActivity.currentUser.getUUID(), message.id(),
                         ReactionType.ANGRY,
                         System.currentTimeMillis());
                 adapter.notifyDataSetChanged();
@@ -143,7 +143,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
             });
             popupView.findViewById(R.id.btnLaugh).setOnClickListener(v -> {
                 ReactionsFacade.addReaction(
-                        message.poster(), message.id(),
+                        MainActivity.currentUser.getUUID(), message.id(),
                         ReactionType.LAUGH,
                         System.currentTimeMillis());
                 adapter.notifyDataSetChanged();
@@ -152,7 +152,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
             });
             popupView.findViewById(R.id.btnSad).setOnClickListener(v -> {
                 ReactionsFacade.addReaction(
-                        message.poster(), message.id(),
+                        MainActivity.currentUser.getUUID(), message.id(),
                         ReactionType.SAD,
                         System.currentTimeMillis());
                 adapter.notifyDataSetChanged();
@@ -161,7 +161,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
             });
             popupView.findViewById(R.id.btnLove).setOnClickListener(v -> {
                 ReactionsFacade.addReaction(
-                        message.poster(), message.id(),
+                        MainActivity.currentUser.getUUID(), message.id(),
                         ReactionType.LOVE,
                         System.currentTimeMillis());
                 adapter.notifyDataSetChanged();
@@ -170,7 +170,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
             });
             popupView.findViewById(R.id.btnGoodLuck).setOnClickListener(v -> {
                 ReactionsFacade.addReaction(
-                        message.poster(), message.id(),
+                        MainActivity.currentUser.getUUID(), message.id(),
                         ReactionType.GOOD_LUCK,
                         System.currentTimeMillis());
                 adapter.notifyDataSetChanged();
@@ -179,7 +179,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
             });
             popupView.findViewById(R.id.btnCongratulations).setOnClickListener(v -> {
                 ReactionsFacade.addReaction(
-                        message.poster(), message.id(),
+                        MainActivity.currentUser.getUUID(), message.id(),
                         ReactionType.CONGRATULATIONS,
                         System.currentTimeMillis());
                 adapter.notifyDataSetChanged();
