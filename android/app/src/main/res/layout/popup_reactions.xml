@@ -1,0 +1,74 @@
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:columnCount="3"
+    android:rowCount="3"
+    android:alignmentMode="alignMargins"
+    android:useDefaultMargins="true"
+    android:background="@drawable/bg_popup_reaction"
+    android:padding="8dp">
+
+    <ImageView
+        android:id="@+id/btnLike"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/like"
+        android:contentDescription="Like" />
+
+    <ImageView
+        android:id="@+id/btnHappy"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/happy"
+        android:contentDescription="Happy" />
+
+    <ImageView
+        android:id="@+id/btnSurprise"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/surprise"
+        android:contentDescription="Surprise" />
+
+    <ImageView
+        android:id="@+id/btnAngry"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/angry"
+        android:contentDescription="Angry" />
+
+    <ImageView
+        android:id="@+id/btnLaugh"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/laugh"
+        android:contentDescription="Laugh" />
+
+    <ImageView
+        android:id="@+id/btnSad"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/sad"
+        android:contentDescription="Sad" />
+
+    <ImageView
+        android:id="@+id/btnLove"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/love"
+        android:contentDescription="Love" />
+
+    <ImageView
+        android:id="@+id/btnGoodLuck"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/good_luck"
+        android:contentDescription="Good Luck" />
+
+    <ImageView
+        android:id="@+id/btnCongratulations"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/congratulations"
+        android:contentDescription="Congratulations" />
+
+</GridLayout>
