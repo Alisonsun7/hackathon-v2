@@ -6,50 +6,50 @@
     </style>
 
     <style name="Theme.Light" parent="Base.Theme.COMP2100Miniproject">
-        <!-- 主色 -->
-        <item name="colorPrimary">#FF2962FF</item> <!-- 蓝 -->
+        <!-- Primary color -->
+        <item name="colorPrimary">#FF2962FF</item> <!-- Blue -->
         <item name="colorPrimaryVariant">#FF0039CB</item>
         <item name="colorOnPrimary">#FFFFFFFF</item>
 
-        <!-- 次色 -->
-        <item name="colorSecondary">#FFFF9100</item> <!-- 橙 -->
+        <!-- Secondary color -->
+        <item name="colorSecondary">#FFFF9100</item> <!-- Orange -->
         <item name="colorOnSecondary">#FF000000</item>
 
-        <!-- 背景与表面 -->
-        <item name="android:colorBackground">#FFFAFAFA</item> <!-- 浅灰背景 -->
-        <item name="colorSurface">#FFFFFFFF</item> <!-- 白卡片 -->
-        <item name="colorOnBackground">#FF212121</item> <!-- 深灰文字 -->
+        <!-- Background and surface -->
+        <item name="android:colorBackground">#FFFAFAFA</item> <!-- Light gray background -->
+        <item name="colorSurface">#FFFFFFFF</item> <!-- White card -->
+        <item name="colorOnBackground">#FF212121</item> <!-- Dark gray text -->
         <item name="colorOnSurface">#FF333333</item>
 
-        <!-- 错误红 -->
+        <!-- Error red -->
         <item name="colorError">#FFD32F2F</item>
 
-        <!-- 状态栏/导航栏 -->
+        <!-- Status bar / Navigation bar -->
         <item name="android:windowBackground">#FFFAFAFA</item>
         <item name="android:statusBarColor">#FF2962FF</item>
         <item name="android:navigationBarColor">#FFFAFAFA</item>
     </style>
 
     <style name="Theme.Dark" parent="Base.Theme.COMP2100Miniproject">
-        <!-- 主色 -->
-        <item name="colorPrimary">#FF82B1FF</item> <!-- 浅蓝 -->
+        <!-- Primary color -->
+        <item name="colorPrimary">#FF82B1FF</item> <!-- Light blue -->
         <item name="colorPrimaryVariant">#FF29447E</item>
         <item name="colorOnPrimary">#FF000000</item>
 
-        <!-- 次色 -->
+        <!-- Secondary color -->
         <item name="colorSecondary">#FFFFB74D</item>
         <item name="colorOnSecondary">#FF000000</item>
 
-        <!-- 背景与表面 -->
-        <item name="android:colorBackground">#FF121212</item> <!-- 深灰 -->
+        <!-- Background and surface -->
+        <item name="android:colorBackground">#FF121212</item> <!-- Dark gray -->
         <item name="colorSurface">#FF1E1E1E</item>
-        <item name="colorOnBackground">#FFE0E0E0</item> <!-- 浅灰文字 -->
+        <item name="colorOnBackground">#FFE0E0E0</item> <!-- Light gray text -->
         <item name="colorOnSurface">#FFE0E0E0</item>
 
-        <!-- 错误红 -->
+        <!-- Error red -->
         <item name="colorError">#FFEF9A9A</item>
 
-        <!-- 状态栏/导航栏 -->
+        <!-- Status bar / Navigation bar -->
         <item name="android:windowBackground">#FF121212</item>
         <item name="android:statusBarColor">#FF1E1E1E</item>
         <item name="android:navigationBarColor">#FF121212</item>
