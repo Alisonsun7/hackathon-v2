@@ -101,7 +101,7 @@ public class RandomContentGenerator {
 		post.messages.insert(message);
 	}
 
-	/** 新增：随机为随机消息添加随机用户的随机 reaction */
+
 	public static void generateReaction() {
 		Message message = getRandomMessageGlobally();
 		if (message == null) return;
@@ -112,7 +112,7 @@ public class RandomContentGenerator {
 		ReactionType type = chooseRandomFromArray(ReactionType.values());
 		long timestamp = System.currentTimeMillis() - random.nextInt(2000000);
 
-		// 注意：Message 没有 getUUID()，用 id() 取 UUID
+		
 //		System.out.println("User: " + user.getUUID() + ", Msg: " + message.id() + ", time: " + timestamp);
 		boolean changed = ReactionsFacade.addReaction(user.getUUID(), message.id(), type, timestamp);
 //		System.out.println("Changed: " + changed);
@@ -124,17 +124,4 @@ public class RandomContentGenerator {
 		return post.messages.getRandom();
 	}
 
-	/* ========= 可直接在命令行运行的 main（临时调试入口） =========
-       终端命令（在包含 dao/ 的目录下，例如 app/src）：
-         javac -d . dao/RandomContentGenerator.java
-         java dao.RandomContentGenerator
-       如果你用 Java 23 并已启用 preview：
-         javac --enable-preview --release 23 -d . dao/RandomContentGenerator.java
-         java  --enable-preview dao.RandomContentGenerator
-    */
-	public static void main(String[] args) {
-		System.out.println(" Testing RandomContentGenerator...");
-		populateRandomData();
-		System.out.println("Data generation complete!");
-	}
 }
