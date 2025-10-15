@@ -1,0 +1,58 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.COMP2100Miniproject" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    </style>
+
+    <style name="Theme.Light" parent="Base.Theme.COMP2100Miniproject">
+        <!-- Primary color -->
+        <item name="colorPrimary">#FF2962FF</item> <!-- Blue -->
+        <item name="colorPrimaryVariant">#FF0039CB</item>
+        <item name="colorOnPrimary">#FFFFFFFF</item>
+
+        <!-- Secondary color -->
+        <item name="colorSecondary">#FFFF9100</item> <!-- Orange -->
+        <item name="colorOnSecondary">#FF000000</item>
+
+        <!-- Background and surface -->
+        <item name="android:colorBackground">#FFFAFAFA</item> <!-- Light gray background -->
+        <item name="colorSurface">#FFFFFFFF</item> <!-- White card -->
+        <item name="colorOnBackground">#FF212121</item> <!-- Dark gray text -->
+        <item name="colorOnSurface">#FF333333</item>
+
+        <!-- Error red -->
+        <item name="colorError">#FFD32F2F</item>
+
+        <!-- Status bar / Navigation bar -->
+        <item name="android:windowBackground">#FFFAFAFA</item>
+        <item name="android:statusBarColor">#FF2962FF</item>
+        <item name="android:navigationBarColor">#FFFAFAFA</item>
+    </style>
+
+    <style name="Theme.Dark" parent="Base.Theme.COMP2100Miniproject">
+        <!-- Primary color -->
+        <item name="colorPrimary">#FF82B1FF</item> <!-- Light blue -->
+        <item name="colorPrimaryVariant">#FF29447E</item>
+        <item name="colorOnPrimary">#FF000000</item>
+
+        <!-- Secondary color -->
+        <item name="colorSecondary">#FFFFB74D</item>
+        <item name="colorOnSecondary">#FF000000</item>
+
+        <!-- Background and surface -->
+        <item name="android:colorBackground">#FF121212</item> <!-- Dark gray -->
+        <item name="colorSurface">#FF1E1E1E</item>
+        <item name="colorOnBackground">#FFE0E0E0</item> <!-- Light gray text -->
+        <item name="colorOnSurface">#FFE0E0E0</item>
+
+        <!-- Error red -->
+        <item name="colorError">#FFEF9A9A</item>
+
+        <!-- Status bar / Navigation bar -->
+        <item name="android:windowBackground">#FF121212</item>
+        <item name="android:statusBarColor">#FF1E1E1E</item>
+        <item name="android:navigationBarColor">#FF121212</item>
+    </style>
+
+</resources>

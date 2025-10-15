@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">COMP2100 Miniproject</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="msg_title">Message Title</string>
+    <string name="msg_author">Message Author</string>
+    <string name="msg_content">Message content</string>
+    <string name="msg_timestamp">Msg Timestamp</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="post_title">Post Title</string>
+    <string name="post_author">Post Author</string>
+    <string name="post_content">Post content</string>
+    <string name="post_timestamp">Post Time</string>
+    <string name="post_msgCount">Post Message Count</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="msg_reactionCount">Message Reaction Count</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
